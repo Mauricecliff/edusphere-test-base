@@ -9,9 +9,10 @@ import { RouterModule } from '@nestjs/core';
 import { EmailService } from '../email/email.service';
 import { BullModule } from '@nestjs/bull';
 import { RegisterController } from './register/register.controller';
+import { RegisterService } from './register/register.service';
 
 @Module({
-  providers: [ApiService, AuthService, StudentService, EmailService],
+  providers: [ApiService, AuthService, StudentService,RegisterService, EmailService],
   imports: [
     DataModule,
     RouterModule.register([{ path: 'api', module: ApiModule }]),

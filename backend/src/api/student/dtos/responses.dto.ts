@@ -22,5 +22,5 @@ export class GetStudentsResponseDTOData {
 
 export class GetStudentsResponseDTO extends ApiResponseDTO {
   @ApiProperty({type:[GetStudentsResponseDTOData]})
-  data: GetStudentsResponseDTOData;
+  data:Array< GetStudentsResponseDTOData>;
 }

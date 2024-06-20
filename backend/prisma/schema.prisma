@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AccountStatus {
+  SUSPENDED
+  ACTIVE
+  INACTIVE
+}
+
+model AccountUser {
+  id                String        @id @db.VarChar(20)
+  email             String        @unique
+  first_name        String
+  last_name         String
+  password_hash     String
+  is_email_verified Boolean       @default(false)
+  status            AccountStatus
+  role              String //STUDENT ADMIN SUPER_ADMIN TEACHER
+  created_at        DateTime      @default(now())
+  updated_at        DateTime      @updatedAt
+  studentInfo       Student?
+  adminInfo         Admin?
+}
+
+
+model Permission {
+  id    String @id @db.VarChar(50)
+  name  String
+  scope String
+
+  @@unique([name, scope])
+}
+
+enum StudenthoodStatus {
+  CURRENT_ACTIVE
+  CURRENT_SUSPENDED
+  PAST_GRADUATED
+  PAST_EXPELLED
+}
+
+model Student {
+  id         String        @id @db.VarChar()
+  student_id String        @unique
+  email      String        @unique
+  year       Int
+  status     StudenthoodStatus @default(CURRENT_ACTIVE)
+  created_at DateTime      @default(now())
+  updated_at DateTime      @updatedAt
+  user       AccountUser   @relation(fields: [email], references: [email])
+}
+
+model Admin {
+  id         String      @id @db.VarChar()
+  email      String      @unique
+  year       Int
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  user       AccountUser @relation(fields: [email], references: [email])
+}
+
+enum TokenType {
+  EMAIL
+  SMS
+}
+
+enum TokenContext {
+  EMAIL_VERIFICATION
+  OTP
+  PHONE_NUMBER_VERIFICATION
+  PASSWORD_RECOVERY
+}
+
+enum TokenStatus {
+  EXPIRED
+  VALID
+  VERIFIED
+  PENDING
+  REVOKED
+}
+
+model Token {
+  id          Int          @id @default(autoincrement())
+  token       String
+  token_value String
+  token_type  TokenType
+  context     TokenContext
+  ttl         DateTime
+  status      TokenStatus  @default(PENDING)
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+
+  @@unique([token, token_value, token_type])
+}

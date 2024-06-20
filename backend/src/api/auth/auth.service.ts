@@ -14,7 +14,7 @@ import { SendPasswordRecoveryEmailPayload, SendVerificationEmailPayload } from '
 import { JwtService } from '@nestjs/jwt';
 import { JWTPayload } from '../../utils/shared/dtos/auth.shared';
 import { generatePasswordHash, verifyPassword } from 'src/utils/password';
-import { SignInDTO } from '../student/dtos/requests.dto';
+import { SignInDTO } from '../register/dtos/requests.dto';
 
 @Injectable()
 export class AuthService {

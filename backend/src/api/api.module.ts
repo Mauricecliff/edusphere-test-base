@@ -8,6 +8,7 @@ import { DataModule } from '../data/data.module';
 import { RouterModule } from '@nestjs/core';
 import { EmailService } from '../email/email.service';
 import { BullModule } from '@nestjs/bull';
+import { RegisterController } from './register/register.controller';
 
 @Module({
   providers: [ApiService, AuthService, StudentService, EmailService],
@@ -16,6 +17,6 @@ import { BullModule } from '@nestjs/bull';
     RouterModule.register([{ path: 'api', module: ApiModule }]),
     BullModule.registerQueue(...[{ name: 'email' }]),
   ],
-  controllers: [AuthController, StudentController],
+  controllers: [AuthController, StudentController,RegisterController],
 })
 export class ApiModule {}

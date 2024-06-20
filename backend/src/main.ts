@@ -12,6 +12,8 @@ process.env.JWT_SECRET_KEY=secretKey.toString("hex");
 app.use(helmet())
   const config = new DocumentBuilder().build();
   const document = SwaggerModule.createDocument(app, config);
+  document.info.contact.email="trinitietp@gmail.com";
+  document.info.contact.url="https://github.com/datrine";
   SwaggerModule.setup('/api/docs', app, document);
   await app.listen(3000);
 }

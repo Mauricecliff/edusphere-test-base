@@ -30,7 +30,7 @@ import jwtContants from './utils/jwtContants';
     }),
   ],
 
-  controllers: [AppController, RegisterController],
+  controllers: [AppController,],
   providers: [AppService, EmailService, RegisterService],
 })
 export class AppModule {}

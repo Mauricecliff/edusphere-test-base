@@ -19,6 +19,14 @@ enum AccountStatus {
   INACTIVE
 }
 
+enum GenderType {
+  MALE
+  FEMALE
+  NON_BINARY
+  UNSPECIFIED
+  OTHER
+}
+
 model AccountUser {
   id                String        @id @db.VarChar(20)
   email             String        @unique
@@ -27,6 +35,7 @@ model AccountUser {
   password_hash     String
   is_email_verified Boolean       @default(false)
   status            AccountStatus
+  gender GenderType?
   role              String //STUDENT ADMIN SUPER_ADMIN TEACHER
   created_at        DateTime      @default(now())
   updated_at        DateTime      @updatedAt

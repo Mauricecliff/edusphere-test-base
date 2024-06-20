@@ -5,7 +5,7 @@ import { RegisterService } from './register.service';
 @Controller('register')
 export class RegisterController {
     constructor(private registerService:RegisterService){}
-    @Post('/register')
+    @Post('/student/self')
     async studentSelfRegister(
       @Body(new ValidationPipe({ transform: true }))
       bodyData: StudentSelfRegistrationDTO,

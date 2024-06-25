@@ -11,6 +11,7 @@ import { ApiResponseDTO } from 'src/utils/shared/dtos/response.dto';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  
   @Post('/signin')
   @ApiOkResponse({type:SignInResponseDTO})
   async signin(@Body(new ValidationPipe({ transform: true })) body: SignInDTO) {

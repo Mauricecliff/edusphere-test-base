@@ -1,6 +1,8 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Prisma } from '@prisma/client';
+import { $Enums, Prisma } from '@prisma/client';
 import { IsEmail, IsOptional } from 'class-validator';
+import { ApiResponseDTO } from "../../../utils/shared/dtos/response.dto";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class GetStudentsRequestDTO {
   @ApiPropertyOptional({ type: 'Email equal to value' })
@@ -32,6 +34,55 @@ export class GetStudentsRequestDTO {
   year_not: number;
   years_in: Array<number>;
   years_not_in: Array<number>;
+}
+
+
+export class StudentDetailUploadDTOData{
+    @ApiProperty({type:"string",description:"The student id of the student. e.g student's matric number"})
+    student_id: string;
+    @ApiProperty({type:"string",description:"The email of the student."})
+    @IsEmail()
+    email: string;
+    @ApiProperty({type:"string",description:"The first name of the student."})
+    first_name: string;
+    @ApiProperty({type:"string",description:"The last name id of the student."})
+    last_name: string;
+    
+    @ApiProperty({type:"number",description:"The year of the student."})
+    year?: 1|2|3|4|5;
+
+    
+    @ApiProperty({type:"string",format:"date",description:"The year of the student."})
+    created_at?: Date;
+
+    @ApiProperty({type:"string",format:"date",description:"The year of the student."})
+    updated_at?:Date;
+}
+export class StudentSelfRegistrationResponseDTO extends ApiResponseDTO{
+    @ApiProperty({type:"bnumber",default:201})
+    statusCode: number;
+    message: string;
+    @ApiProperty({type:StudentDetailUploadDTOData})
+    data:StudentDetailUploadDTOData
+}
+
+
+export class StudentDetailsUploadRequestDTO{
+    @ApiProperty({type:"string",description:"The student id of the student. e.g student's matric number"})
+    student_id: string;
+    @ApiProperty({type:"string",description:"The email of the student."})
+    @IsEmail()
+    email: string;
+    @ApiProperty({type:"string",description:"The first name of the student."})
+    first_name: string;
+    @ApiProperty({type:"string",description:"The last name id of the student."})
+    last_name: string;
+    @ApiProperty({type:"string",description:"The last name id of the student."})
+    password: string;
+    @ApiProperty({type:"string",description:"The last name id of the student."})
+    gender: $Enums.GenderType;
+    @ApiProperty({type:"string",description:"The school year of the student."})
+    year: number;
 }
 
 /**

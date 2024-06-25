@@ -2,8 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   Param,
-  Post,
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
@@ -13,7 +13,10 @@ import { ResponseInterceptor } from 'src/utils/interceptors/response.interceptor
 import {
   GetStudentsResponseDTO,
   GetStudentsResponseDTOData,
+  UploadStudentDetailsResponseDTO,
 } from './dtos/responses.dto';
+import { StudentDetailsUploadRequestDTO } from './dtos/requests.dto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Controller('students')
 @ApiTags('APIs: Students')
@@ -21,6 +24,29 @@ import {
 export class StudentController {
   constructor(private studentService: StudentService) {}
 
+  @HttpCode(201)
+  @ApiOkResponse({ type:UploadStudentDetailsResponseDTO})
+  async registerUserByAdmin(
+    @Body(new ValidationPipe({ transform: true }))
+    bodyData: StudentDetailsUploadRequestDTO,
+  ) {
+    let responseData: GetStudentsResponseDTOData;
+    let resData = await this.studentService.studentSelfRegister(bodyData);
+    if (resData) {
+      responseData = {
+        student_id: resData.studentInfo.student_id,
+        first_name: resData.first_name,
+        last_name: resData.last_name,
+        email: resData.email,
+        created_at: resData.created_at,
+        updated_at: resData.updated_at,
+      };
+    }
+    return {
+      message: 'Student successfully self-registered',
+      data: responseData,
+    };
+  }
   @Get('')
   @ApiOkResponse({ type: GetStudentsResponseDTO })
   async getStudents() {

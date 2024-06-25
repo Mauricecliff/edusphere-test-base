@@ -34,7 +34,7 @@
     "@prisma/client": "^5.15.0",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
-    "bull": "^4.12.9",
+    "bull": "^4.14.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",

@@ -38,7 +38,9 @@ export class AuthService {
       role: acc.role,
       account_id: acc.id,
     };
+    
     let access_token = this.jwtService.sign(jwtPayload);
+    await this.emailService.verifyConnection()
     return { access_token, ...acc };
     //await this.emailQueue.add(EmailJob.SendVerificationEmail,jobPayload,{priority:1})
   }

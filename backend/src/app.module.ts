@@ -11,6 +11,7 @@ import { RegisterController } from './api/register/register.controller';
 import { RegisterService } from './api/register/register.service';
 import { JwtModule } from '@nestjs/jwt';
 import jwtContants from './utils/jwtContants';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -31,6 +32,6 @@ import jwtContants from './utils/jwtContants';
   ],
 
   controllers: [AppController,],
-  providers: [AppService, EmailService, RegisterService],
+  providers: [AppService, EmailService, RegisterService,ConfigService],
 })
 export class AppModule {}

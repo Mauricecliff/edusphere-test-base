@@ -10,6 +10,9 @@ export class GetStudentsResponseDTOData {
   last_name?: string;
 
   @ApiProperty({ type: 'string' })
+  email?: string;
+
+  @ApiProperty({ type: 'string' })
   first_name?: string;
 
   @ApiProperty({ type: 'string' })
@@ -18,6 +21,12 @@ export class GetStudentsResponseDTOData {
   
   @ApiProperty({ type: 'number' })
   year?: number;
+
+  @ApiProperty({ type: 'string' })
+  created_at?: Date;
+
+  @ApiProperty({ type: 'string' })
+  updated_at?: Date;
 }
 
 export class GetStudentsResponseDTO extends ApiResponseDTO {
@@ -27,6 +36,12 @@ export class GetStudentsResponseDTO extends ApiResponseDTO {
 
 
 export class GetStudentByIdResponseDTO extends ApiResponseDTO {
+  @ApiProperty({type:GetStudentsResponseDTOData})
+  data:GetStudentsResponseDTOData;
+}
+
+
+export class UploadStudentDetailsResponseDTO extends ApiResponseDTO {
   @ApiProperty({type:GetStudentsResponseDTOData})
   data:GetStudentsResponseDTOData;
 }

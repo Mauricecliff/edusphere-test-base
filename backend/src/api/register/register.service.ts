@@ -11,14 +11,14 @@ import { DataService } from '../../data/data.service';
 
 @Injectable()
 export class RegisterService {
-    constructor(
-        private dataService: DataService,
-        private eventEmitter: EventEmitter2,
-        private emailService: EmailService,
-      ) {}
-    async studentSelfRegister(bodyData: StudentSelfRegistrationDTO) {
-      try {
-        let account_id = customAlphabet(
+  constructor(
+    private dataService: DataService,
+    private eventEmitter: EventEmitter2,
+    private emailService: EmailService,
+  ) {}
+  async studentSelfRegister(bodyData: StudentSelfRegistrationDTO) {
+    try {
+      let account_id = customAlphabet(
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
         10,
       )();
@@ -54,12 +54,11 @@ export class RegisterService {
       };
       this.eventEmitter.emit(AccountCreatedEvent, payload);
       return createdAccountUser;
-      } catch (error) {
-        errorFormat(error)
-      }
-      
+    } catch (error) {
+      errorFormat(error);
     }
-  
-    @OnEvent(AccountCreatedEvent)
-    async handleAccountCreatedEvent(payload: AccountUserCreatedPayload) {
-    }}
+  }
+
+  @OnEvent(AccountCreatedEvent)
+  async handleAccountCreatedEvent(payload: AccountUserCreatedPayload) {}
+}

@@ -1,3 +1,5 @@
 const AccountCreatedEvent="AccountCreated"
-
-export {AccountCreatedEvent}
+enum AccountEvent{
+    AccountCreated="AccountCreatedEvent"
+}
+export {AccountCreatedEvent,AccountEvent}

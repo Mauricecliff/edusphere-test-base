@@ -10,14 +10,32 @@ import { EmailService } from '../email/email.service';
 import { BullModule } from '@nestjs/bull';
 import { RegisterController } from './register/register.controller';
 import { RegisterService } from './register/register.service';
+import { ConfigService } from '@nestjs/config';
+import { AdminController } from './admin/admin.controller';
+import { AdminService } from './admin/admin.service';
 
 @Module({
-  providers: [ApiService, AuthService, StudentService,RegisterService, EmailService],
+  providers: [
+    ApiService,
+    AuthService,
+    StudentService,
+    RegisterService,
+    EmailService,
+    ConfigService,
+    AdminService,
+  ],
+
   imports: [
     DataModule,
+    BullModule.registerQueue({ name: 'email' }),
     RouterModule.register([{ path: 'api', module: ApiModule }]),
-    BullModule.registerQueue(...[{ name: 'email' }]),
   ],
-  controllers: [AuthController, StudentController,RegisterController],
+
+  controllers: [
+    AuthController,
+    StudentController,
+    RegisterController,
+    AdminController,
+  ],
 })
 export class ApiModule {}

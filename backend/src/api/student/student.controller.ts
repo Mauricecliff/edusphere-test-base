@@ -4,6 +4,9 @@ import {
   Get,
   HttpCode,
   Param,
+  Post,
+  Req,
+  UseGuards,
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
@@ -17,6 +20,11 @@ import {
 } from './dtos/responses.dto';
 import { StudentDetailsUploadRequestDTO } from './dtos/requests.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Request } from 'express';
+import { AuthGuard } from 'src/utils/guards/auth.guard';
+import { AuthRequest } from 'src/utils/shared/interface/auth.interface';
+import { RolesGuard } from 'src/utils/guards/roles.guard';
+import { Roles } from 'src/utils/decorators/roles.decorator';
 
 @Controller('students')
 @ApiTags('APIs: Students')
@@ -24,14 +32,19 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 export class StudentController {
   constructor(private studentService: StudentService) {}
 
+  
+  @Post("")
+  @UseGuards(AuthGuard,RolesGuard) 
+  @Roles(["ADMIN"])
   @HttpCode(201)
   @ApiOkResponse({ type:UploadStudentDetailsResponseDTO})
   async registerUserByAdmin(
+    @Req()req:AuthRequest,
     @Body(new ValidationPipe({ transform: true }))
     bodyData: StudentDetailsUploadRequestDTO,
   ) {
     let responseData: GetStudentsResponseDTOData;
-    let resData = await this.studentService.studentSelfRegister(bodyData);
+    let resData = await this.studentService.uploadStudentDetails(req.user.email, bodyData);
     if (resData) {
       responseData = {
         student_id: resData.studentInfo.student_id,

@@ -5,10 +5,11 @@ import {
   Post,
   ValidationPipe,
 } from '@nestjs/common';
-import { StudentSelfRegistrationDTO } from './dtos/requests.dto';
+import { AdminSelfRegistrationDTO, StudentSelfRegistrationDTO } from './dtos/requests.dto';
 import { RegisterService } from './register.service';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import {
+  AdminSelfRegistrationResponseDTO,
   StudentSelfRegistrationResponseDTO,
   StudentSelfRegistrationResponseDTOData,
 } from './dtos/response.dto';
@@ -42,6 +43,31 @@ export class RegisterController {
     };
   }
   
+  @Post('/admin/self')
+  @HttpCode(201)
+  @ApiOkResponse({ type: AdminSelfRegistrationResponseDTO })
+  async registerAdminBySelf(
+    @Body(new ValidationPipe({ transform: true }))
+    bodyData: AdminSelfRegistrationDTO,
+  ) {
+    let responseData: StudentSelfRegistrationResponseDTOData;
+    let resData = await this.registerService.adminSelfRegister(bodyData);
+    if (resData) {
+      responseData = {
+        student_id: resData.studentInfo.student_id,
+        first_name: resData.first_name,
+        last_name: resData.last_name,
+        email: resData.email,
+        created_at: resData.created_at,
+        updated_at: resData.updated_at,
+      };
+    }
+    return {
+      message: 'Admin successfully self-registered',
+      data: responseData,
+    };
+  }
+
   @HttpCode(201)
   @ApiOkResponse({ type: StudentSelfRegistrationResponseDTO })
   async registerUserByAdmin(

@@ -2,9 +2,10 @@ import { Body, Controller, Get, Post, Query, Req, UseGuards, ValidationPipe } fr
 import { AuthService } from './auth.service';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { EmailVerificationCompletionDTO, PasswordChangeDTO, PasswordRecoveryCompletionDTO, SignInDTO } from './dtos/requests.dto';
-import { AuthGuard, AuthRequest } from 'src/utils/guards/auth.guard';
+import { AuthGuard, } from 'src/utils/guards/auth.guard';
 import { SignInResponseDTO, SignInResponseDTOData } from './dtos/responses.dto';
 import { ApiResponseDTO } from 'src/utils/shared/dtos/response.dto';
+import { AuthRequest } from 'src/utils/shared/interface/auth.interface';
 
 @Controller('auth')
 @ApiTags('APIs: Auth')

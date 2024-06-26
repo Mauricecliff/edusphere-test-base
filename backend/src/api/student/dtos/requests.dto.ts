@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { $Enums, Prisma } from '@prisma/client';
-import { IsEmail, IsOptional } from 'class-validator';
+import { IsEmail, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiResponseDTO } from "../../../utils/shared/dtos/response.dto";
 import { ApiProperty } from "@nestjs/swagger";
 
@@ -69,19 +69,21 @@ export class StudentSelfRegistrationResponseDTO extends ApiResponseDTO{
 
 export class StudentDetailsUploadRequestDTO{
     @ApiProperty({type:"string",description:"The student id of the student. e.g student's matric number"})
+    @IsString()
     student_id: string;
     @ApiProperty({type:"string",description:"The email of the student."})
     @IsEmail()
     email: string;
     @ApiProperty({type:"string",description:"The first name of the student."})
+    @IsString()
     first_name: string;
     @ApiProperty({type:"string",description:"The last name id of the student."})
+    @IsString()
     last_name: string;
-    @ApiProperty({type:"string",description:"The last name id of the student."})
-    password: string;
-    @ApiProperty({type:"string",description:"The last name id of the student."})
+    @ApiProperty({enum:$Enums.GenderType,description:"The gender of the student."})
     gender: $Enums.GenderType;
     @ApiProperty({type:"string",description:"The school year of the student."})
+    @IsNumber()
     year: number;
 }
 

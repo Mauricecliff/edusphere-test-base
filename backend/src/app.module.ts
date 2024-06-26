@@ -12,6 +12,7 @@ import { RegisterService } from './api/register/register.service';
 import { JwtModule } from '@nestjs/jwt';
 import jwtContants from './utils/jwtContants';
 import { ConfigService } from '@nestjs/config';
+import {REDIS_HOST, REDIS_PASS, REDIS_PORT, REDIS_USER} from "./utils/env"
 
 @Module({
   imports: [
@@ -20,7 +21,10 @@ import { ConfigService } from '@nestjs/config';
     EventEmitterModule.forRoot(),
     BullModule.forRoot({
       redis: {
-        port: 6381,
+        port: REDIS_PORT,
+        host:REDIS_HOST,
+        password: REDIS_PASS,
+        username: REDIS_USER
       },
     }),
     JobConsumersModule,
@@ -32,6 +36,6 @@ import { ConfigService } from '@nestjs/config';
   ],
 
   controllers: [AppController,],
-  providers: [AppService, EmailService, RegisterService,ConfigService],
+  providers: [AppService, EmailService,ConfigService],
 })
 export class AppModule {}

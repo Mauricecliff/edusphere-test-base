@@ -27,7 +27,7 @@ import { AdminService } from './admin/admin.service';
 
   imports: [
     DataModule,
-    BullModule.registerQueue({ name: 'email' }),
+    BullModule.registerQueue({ name: 'email_queue' }),
     RouterModule.register([{ path: 'api', module: ApiModule }]),
   ],
 

@@ -2,12 +2,13 @@ import { Process, Processor } from '@nestjs/bull';
 import { EmailService } from '../email/email.service';
 import { EmailJob } from '../utils/job_list';
 import { Job } from 'bull';
-import { SendPasswordRecoveryEmailPayload, SendVerificationEmailPayload, SendWelcomeAndUserVerificationEmailPayload } from './dtos/email.job';
+import { SendPasswordRecoveryEmailPayload, SendPostUserUploadEmailPayload, SendVerificationEmailPayload, SendWelcomeAndUserVerificationEmailPayload } from './dtos/email.job';
 import { DataService } from 'src/data/data.service';
 import { customAlphabet } from 'nanoid';
 import { DateTime } from 'luxon';
+import {postUserUploadTemplate} from "../../email_templates/post_upload_email"
 
-@Processor('email')
+@Processor('email_queue')
 export class EmailConsumer {
   constructor(
     private emailService: EmailService,
@@ -103,4 +104,29 @@ export class EmailConsumer {
       subject: '',
     });
   }
+
+  @Process(EmailJob.SendPostUserUploadEmail)
+  async sendPostUserUploadEmail(
+    job: Job<SendPostUserUploadEmailPayload>,
+  ) {
+    try {
+      
+    console.log("About to start job send post-user upload email")
+    let data = job.data;
+    let htmlStr=postUserUploadTemplate({
+      firstName:data.first_name,
+      email:data.email,
+      password:data.password,
+    })
+    let isSent=await this.emailService.send({
+      to: data.email,
+      body: htmlStr,
+      subject: 'Welcome To Edusphere',
+    });
+    console.log(isSent);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 }

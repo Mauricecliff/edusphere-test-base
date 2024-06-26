@@ -23,6 +23,21 @@ export class StudentSelfRegistrationDTO{
 }
 
 
+export class AdminSelfRegistrationDTO{
+    @ApiProperty({type:"string",description:"The email of the student."})
+    @IsEmail()
+    email: string;
+    @ApiProperty({type:"string",description:"The first name of the student."})
+    @IsString()
+    first_name: string;
+    @ApiProperty({type:"string",description:"The last name id of the student."})
+    @IsString()
+    last_name: string;
+    @ApiProperty({type:"string",description:"The password of the student."})
+    @IsString()
+    password: string;
+}
+
 export class StudentRegistrationByAdminDTO{
     @ApiProperty({type:"string",description:"The student id of the student. e.g student's matric number"})
     student_id: string;

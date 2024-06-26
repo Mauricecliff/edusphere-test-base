@@ -19,3 +19,12 @@ export type SendPasswordRecoveryEmailPayload = {
   email: string;
   context?: string;
 };
+
+
+export type SendPostUserUploadEmailPayload = {
+  jobName: EmailJob.SendPostUserUploadEmail;
+  email: string;
+  password: string;
+  first_name: string;
+  context?: string;
+};

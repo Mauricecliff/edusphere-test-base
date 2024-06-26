@@ -2,6 +2,7 @@ enum EmailJob{
 SendWelcomeAndUserVerificationEmailToStudent="SendWelcomeAndUserVerificationEmail",
 SendVerificationEmail="SendVerificationEmail",
 
-SendPasswordRecoveryEmail="SendPasswordRecoveryEmail"
+SendPasswordRecoveryEmail="SendPasswordRecoveryEmail",
+SendPostUserUploadEmail="SendPostUserUploadEmail"
 }
 export {EmailJob}

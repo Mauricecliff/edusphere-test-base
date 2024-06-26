@@ -22,7 +22,7 @@ export class AuthService {
     private dataService: DataService,
     private eventEmitter: EventEmitter2,
     private emailService: EmailService,
-    @InjectQueue('email') private emailQueue: Queue,
+    @InjectQueue('email_queue') private emailQueue: Queue,
     private jwtService: JwtService,
   ) {}
 

@@ -10,10 +10,8 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 import { JWTPayload } from '../shared/dtos/auth.shared';
+import { AuthRequest } from '../shared/interface/auth.interface';
 
-export interface AuthRequest extends Request {
-  user: JWTPayload;
-}
 
 @Injectable()
 export class RequestInterceptor implements NestInterceptor {

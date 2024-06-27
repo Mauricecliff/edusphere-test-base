@@ -10,6 +10,7 @@ import { RegisterService } from './register.service';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import {
   AdminSelfRegistrationResponseDTO,
+  AdminSelfRegistrationResponseDTOData,
   StudentSelfRegistrationResponseDTO,
   StudentSelfRegistrationResponseDTOData,
 } from './dtos/response.dto';
@@ -50,11 +51,10 @@ export class RegisterController {
     @Body(new ValidationPipe({ transform: true }))
     bodyData: AdminSelfRegistrationDTO,
   ) {
-    let responseData: StudentSelfRegistrationResponseDTOData;
+    let responseData: AdminSelfRegistrationResponseDTOData;
     let resData = await this.registerService.adminSelfRegister(bodyData);
     if (resData) {
       responseData = {
-        student_id: resData.studentInfo.student_id,
         first_name: resData.first_name,
         last_name: resData.last_name,
         email: resData.email,

@@ -36,7 +36,6 @@ export default function TopNav() {
     console.log(animation, handleNav);
   };
   
-  console.log('pathname>>', pathName)  
 
 
   

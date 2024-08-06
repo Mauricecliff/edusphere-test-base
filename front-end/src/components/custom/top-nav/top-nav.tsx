@@ -65,7 +65,7 @@ export default function TopNav() {
 
   return (
     <>
-       <nav className={`bg-[var(--secondary)] px-8 py-[10px] flex items-center justify-between text-[var(--white-text)] `}>
+    <nav className={`bg-[var(--secondary)] px-8 py-[10px] flex items-center justify-between text-[var(--white-text)] `}>
       <div className='flex items-center xl:gap-[7rem] lg:gap-[3rem]'>
         <div>
           <h1 className={`h-[62px] pt-[6px] ${styles.navTitle} `}>
@@ -87,7 +87,7 @@ export default function TopNav() {
         {pathName === '/login' ? null : (
           <div className=''>
             <Link href={'/login'}>
-              <Button className='bg-[var(--loading-button)] hover:bg-[var(--loading-button)]  text-[var(--white-text)]' variant={'secondary'}>
+              <Button className='bg-[var(--loading-button)] w-[6rem] hover:bg-[var(--loading-button)]  text-[var(--white-text)]' variant={'secondary'}>
               Login
               </Button>
             </Link>
@@ -109,7 +109,7 @@ export default function TopNav() {
             </div>
             <div className=''>
             {pathName === '/login' ? null : (
-                <Button className='bg-[var(--loading-button)] hover:bg-[var(--loading-button)]  text-[var(--white-text)]' variant={'secondary'}>
+                <Button className='bg-[var(--loading-button)] hover:bg-[var(--loading-button)]  text-[var(--white-text)] w-[4rem]' variant={'secondary'}>
                 Login
                 </Button>
             )} 

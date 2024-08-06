@@ -1,8 +1,15 @@
-import type { Metadata } from "next";
+
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import TopNav from "@/components/custom/top-nav/top-nav";
-import Footer from "@/components/custom/footer";
+import type { Metadata } from "next";
+import CustomLayouts from "@/views/CustomRootLayout";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
+
+
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -14,21 +21,35 @@ export const metadata: Metadata = {
   description: "Welcome to Edusphare...",
 };
 
+
 export default function RootLayout({
+
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+ 
   return (
     <html lang="en">
 
       <body className={roboto.className}>
+      <ToastContainer 
+         position="top-right"
+         autoClose={1000}
+         hideProgressBar={false}
+         newestOnTop={false}
+         closeOnClick
+         rtl={false}
+         pauseOnFocusLoss
+         draggable
+         pauseOnHover
+         theme="light"
+        
+        />
         <div className="flex flex-col min-h-screen text-[var(--white-text)] ">
-          <TopNav  />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
+        <CustomLayouts>
+           {children}
+        </CustomLayouts>
         </div>
       </body>
     </html>
